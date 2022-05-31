@@ -14,6 +14,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     //Nombre del paquete
     filename: "bundle.js",
+    publicPath: "/",
   },
   //Indicar que es para modo desarrollo y evitar warning al hacer el build
   mode: "development",
@@ -21,6 +22,16 @@ module.exports = {
   //Para definirle que extansiones buscar y que hacer con eso archivos
   resolve: {
     extensions: [".js", ".jsx"],
+    alias: {
+      "@components": path.resolve(__dirname, "./src/components"),
+      "@containers": path.resolve(__dirname, "./src/containers"),
+      "@pages": path.resolve(__dirname, "./src/pages"),
+      "@routes": path.resolve(__dirname, "./src/Routes"),
+      "@styles": path.resolve(__dirname, "./src/styles"),
+      "@icons": path.resolve(__dirname, "./src/assets/icons"),
+      "@logos": path.resolve(__dirname, "./src/assets/logos"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+    },
   },
 
   //Reglas que se crean con los loaders y los plugins
@@ -48,8 +59,13 @@ module.exports = {
       },
       // CCS - Sass
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(css|scss)$/,
         use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      // Manejo imágenes
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        type: "asset",
       },
     ],
   },
@@ -70,5 +86,6 @@ module.exports = {
     compress: true, //para usar gzip]
     historyApiFallback: true, //usar historia
     port: 3006,
+    historyApiFallback: true,
   },
 };
