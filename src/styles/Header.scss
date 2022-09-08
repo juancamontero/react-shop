@@ -36,7 +36,6 @@ nav {
   border-radius: 8px;
 }
 .navbar-left img:hover {
-
 }
 .navbar-left ul li a:hover,
 .navbar-right ul li a:hover {
@@ -68,7 +67,12 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1px;
 }
+.navbar-shopping-cart:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 640px) {
   .menu {
     display: block;

@@ -1,29 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "@styles/ProductItem.scss";
-import addToCard from "@icons/bt_add_to_cart.svg";
+//traigo el contexto, el hook se conecta por App.jsx
+import AppContext from "@context/AppContext";
+import addToCardImg from "@icons/bt_add_to_cart.svg";
 
+const ProductItem = ({ product }) => {
+  const { addToCart } = useContext(AppContext);
 
-const ProductItem = ({product}) => {
-  //en el arreglo -> 'cart' va a ser el ESTADO, 'serCart' es una función modificadora de ese ESTADO. useState da el valor inicial de cart
-  const [cart, setCart] = useState([]);
-  //esta función se ejecuta al onClick del 'addToCard'
-  const handleClick = () => {
-    setCart([]);
+  //esta función se ejecuta al onClick del 'addToCard', recibe el producto
+  const handleClick = (item) => {
+ 
+    addToCart(item)
   };
 
   return (
     <div className="ProductItem">
-      <img
-        src={product.images[0]}
-        alt={product.title}
-      />
+      <img src={product.images[0]} alt={product.title} />
       <div className="product-info">
         <div>
           <p>$ {product.price}</p>
           <p>{product.title}</p>
         </div>
         <figure>
-          <img src={addToCard} onClick={handleClick} alt="Add to cart" />
+          <img src={addToCardImg} onClick={()=> handleClick(product)} alt="Add to cart" />
         </figure>
       </div>
     </div>

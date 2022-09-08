@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "@styles/Header.scss";
 import Menu from "@components/Menu.jsx";
-
 import menu from "@icons/icon_menu.svg";
 import logo from "@logos/logo_yard_sale.svg";
+import AppContext from "@context/AppContext";
+import MyOrder from "@containers/MyOrder";
 import shoppingCart from "@icons/icon_shopping_cart.svg";
 
 const Header = () => {
-  //se inicializa el estado en false (que no se muestre el menú)
+  //se inicializa el estado en false (que no se muestre el menú de usuario)
   const [toggle, setToggle] = useState(false);
+
+  //este nuevo toggle es para las ordemes
+  const [toggleOrders, setToggleOrders] = useState(false);
+
+  //necesito el estado del context, creo una variable para ello y solo traigo la info de cart
+  const {
+    state: { cart },
+  } = useContext(AppContext);
+
   const handleToggle = () => {
     setToggle(!toggle);
   };
+
   return (
     <div>
       <nav>
@@ -44,14 +55,18 @@ const Header = () => {
             <li className="navbar-email" onClick={handleToggle}>
               platzi@example.com
             </li>
-            <li className="navbar-shopping-cart">
+            <li
+              className="navbar-shopping-cart"
+              onClick={() => setToggleOrders(!toggleOrders)}
+            >
               <img src={shoppingCart} alt="shopping cart" />
-              <div>2</div>
+              {cart.length > 0 && <div>{cart.length}</div>}
             </li>
           </ul>
         </div>
       </nav>
-      {toggle && <Menu /> }
+      {toggle && <Menu />}
+      {toggleOrders && <MyOrder />}
     </div>
   );
 };
